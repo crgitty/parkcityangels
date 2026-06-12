@@ -9,11 +9,12 @@
     "cms": "npx tinacms dev -c \"next dev\""
   },
   "dependencies": {
+    "@tinacms/cli": "^1.6.0",
+    "gray-matter": "^4.0.3",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "tinacms": "^2.2.0",
-    "@tinacms/cli": "^1.6.0"
+    "tinacms": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,38 +1,44 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect } from "react";
+import Image from "next/image";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import RevealInit from "@/components/RevealInit";
 
 const DEALUM_URL =
-  "https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23n8";
+  "https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23b8";
+
+interface TeamMember {
+  name: string;
+  role?: string;
+  bio?: string;
+  avatar?: string;
+  _filename: string;
+}
+
+function getTeamMembers(): TeamMember[] {
+  const teamDir = path.join(process.cwd(), "content/team");
+  if (!fs.existsSync(teamDir)) return [];
+  const files = fs.readdirSync(teamDir).filter((f) => f.endsWith(".md") || f.endsWith(".mdx"));
+  return files.map((file) => {
+    const raw = fs.readFileSync(path.join(teamDir, file), "utf-8");
+    const { data } = matter(raw);
+    return {
+      name: data.name ?? "Team Member",
+      role: data.role,
+      bio: data.bio,
+      avatar: data.avatar,
+      _filename: file,
+    };
+  });
+}
 
 export default function AboutPage() {
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) {
-      document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("in"));
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.16 }
-    );
-    document.querySelectorAll("[data-reveal]").forEach((el, i) => {
-      (el as HTMLElement).style.transitionDelay = `${Math.min(i * 45, 180)}ms`;
-      observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+  const team = getTeamMembers();
 
   return (
     <>
+      <RevealInit />
       <main>
         {/* Page Hero */}
         <section className="page-hero">
@@ -119,9 +125,7 @@ export default function AboutPage() {
                 <h3>Founded in Park City, Utah.</h3>
                 <p>
                   A small group of local operators and entrepreneurs formed Park City Angels with a
-                  focus on disciplined, thesis-driven investing at the earliest stages. The founding
-                  members brought operating backgrounds across technology, healthcare, and consumer
-                  industries.
+                  focus on disciplined, thesis-driven investing at the earliest stages.
                 </p>
               </div>
               <div className="timeline-item">
@@ -129,39 +133,31 @@ export default function AboutPage() {
                 <h3>Building the process.</h3>
                 <p>
                   The network formalized its screening and diligence process, establishing the tiered
-                  review model that ensures founders receive substantive feedback — not just a yes or
-                  no — at every stage of evaluation. Membership grew to reflect the diversity of
-                  operating backgrounds the network now brings to every deal.
+                  review model that ensures founders receive substantive feedback at every stage.
                 </p>
               </div>
               <div className="timeline-item">
                 <span className="timeline-year">2015 – 2019</span>
                 <h3>National deal flow, regional roots.</h3>
                 <p>
-                  PCA expanded its founder eligibility to companies across the United States while
-                  maintaining the tight-knit membership culture that makes collaborative diligence
-                  possible. The portfolio crossed 100 investments and $40M in deployed capital during
-                  this period.
+                  PCA expanded its founder eligibility to companies across the United States. The
+                  portfolio crossed 100 investments and $40M in deployed capital.
                 </p>
               </div>
               <div className="timeline-item">
                 <span className="timeline-year">2020 – 2022</span>
                 <h3>Resilience through uncertainty.</h3>
                 <p>
-                  During a period of significant market dislocation, PCA maintained consistent deal
-                  cadence. The network&apos;s long-standing relationships with repeat founders and
-                  co-investors allowed it to continue supporting portfolio companies and identifying
-                  new opportunities without interruption.
+                  During market dislocation, PCA maintained consistent deal cadence and continued
+                  supporting portfolio companies and identifying new opportunities.
                 </p>
               </div>
               <div className="timeline-item">
                 <span className="timeline-year">2023 – Present</span>
                 <h3>$100M invested, 1,275+ deals closed.</h3>
                 <p>
-                  Today Park City Angels is one of the most active angel groups in the country. With
-                  over 100 active members, a rigorous application and screening process, and a
-                  portfolio that spans industry verticals, the network continues to build on its
-                  founding belief: that early-stage founders deserve investors who have done the work.
+                  Today Park City Angels is one of the most active angel groups in the country, with
+                  over 100 active members and a portfolio spanning industry verticals.
                 </p>
               </div>
             </div>
@@ -184,65 +180,47 @@ export default function AboutPage() {
             </div>
 
             <div className="team-grid">
-              <article className="team-card" data-reveal>
-                <div className="team-avatar">A</div>
-                <p className="team-name">Angel Member Name</p>
-                <span className="team-role">Board Chair</span>
-                <p className="team-bio">
-                  [Placeholder] Former founder and operator with 20+ years of experience across
-                  enterprise software and consumer technology. Led two successful exits before
-                  joining the PCA board in 2015.
-                </p>
-              </article>
-              <article className="team-card" data-reveal>
-                <div className="team-avatar">M</div>
-                <p className="team-name">Member Name</p>
-                <span className="team-role">Managing Director</span>
-                <p className="team-bio">
-                  [Placeholder] Oversees deal flow, screening operations, and founder experience.
-                  Previously worked in venture capital and early-stage company operations across the
-                  Mountain West and Bay Area.
-                </p>
-              </article>
-              <article className="team-card" data-reveal>
-                <div className="team-avatar">S</div>
-                <p className="team-name">Member Name</p>
-                <span className="team-role">Investment Committee Chair</span>
-                <p className="team-bio">
-                  [Placeholder] Brings a background in healthcare technology, having founded and
-                  scaled two companies in the sector. Leads the network&apos;s investment committee
-                  and due diligence process.
-                </p>
-              </article>
-              <article className="team-card" data-reveal>
-                <div className="team-avatar">T</div>
-                <p className="team-name">Member Name</p>
-                <span className="team-role">Membership Chair</span>
-                <p className="team-bio">
-                  [Placeholder] Experienced angel investor with a focus on fintech and SaaS. Manages
-                  the member application process and community programming for the PCA network.
-                </p>
-              </article>
-              <article className="team-card" data-reveal>
-                <div className="team-avatar">E</div>
-                <p className="team-name">Member Name</p>
-                <span className="team-role">Founder Relations</span>
-                <p className="team-bio">
-                  [Placeholder] Works directly with founders through the application and screening
-                  process. Former startup operator who brings a first-hand understanding of what
-                  early-stage founders need to succeed.
-                </p>
-              </article>
-              <article className="team-card" data-reveal>
-                <div className="team-avatar">R</div>
-                <p className="team-name">Member Name</p>
-                <span className="team-role">Portfolio Support</span>
-                <p className="team-bio">
-                  [Placeholder] Coordinates post-investment support, co-investor introductions, and
-                  portfolio company programming. Background spans operations and corporate
-                  development at growth-stage technology companies.
-                </p>
-              </article>
+              {team.length > 0 ? (
+                team.map((member) => (
+                  <article className="team-card" data-reveal key={member._filename}>
+                    <div className="team-avatar">
+                      {member.avatar ? (
+                        <Image
+                          src={member.avatar}
+                          alt={member.name}
+                          width={80}
+                          height={80}
+                          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+                        />
+                      ) : (
+                        member.name.charAt(0).toUpperCase()
+                      )}
+                    </div>
+                    <p className="team-name">{member.name}</p>
+                    {member.role && <span className="team-role">{member.role}</span>}
+                    {member.bio && <p className="team-bio">{member.bio}</p>}
+                  </article>
+                ))
+              ) : (
+                // Placeholder cards shown until team members are added in CMS
+                <>
+                  {[
+                    { initial: "A", name: "Angel Member Name", role: "Board Chair", bio: "Former founder and operator with 20+ years of experience across enterprise software and consumer technology." },
+                    { initial: "M", name: "Member Name", role: "Managing Director", bio: "Oversees deal flow, screening operations, and founder experience across the Mountain West and Bay Area." },
+                    { initial: "S", name: "Member Name", role: "Investment Committee Chair", bio: "Brings a background in healthcare technology, having founded and scaled two companies in the sector." },
+                    { initial: "T", name: "Member Name", role: "Membership Chair", bio: "Experienced angel investor with a focus on fintech and SaaS. Manages the member application process." },
+                    { initial: "E", name: "Member Name", role: "Founder Relations", bio: "Works directly with founders through the application and screening process." },
+                    { initial: "R", name: "Member Name", role: "Portfolio Support", bio: "Coordinates post-investment support, co-investor introductions, and portfolio company programming." },
+                  ].map((p, i) => (
+                    <article className="team-card" data-reveal key={i}>
+                      <div className="team-avatar">{p.initial}</div>
+                      <p className="team-name">{p.name}</p>
+                      <span className="team-role">{p.role}</span>
+                      <p className="team-bio">{p.bio}</p>
+                    </article>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </section>
@@ -257,8 +235,7 @@ export default function AboutPage() {
               </div>
               <p className="section-copy">
                 These are not aspirational statements. They are the commitments we hold ourselves to
-                with every founder interaction, every diligence session, and every investment
-                decision.
+                with every founder interaction, every diligence session, and every investment decision.
               </p>
             </div>
 
@@ -277,8 +254,7 @@ export default function AboutPage() {
                 <h3>Process protects both sides.</h3>
                 <p>
                   Our tiered screening process exists to protect founders from wasted cycles and
-                  members from under-diligenced decisions. Consistency is a feature, not a
-                  bureaucratic burden.
+                  members from under-diligenced decisions. Consistency is a feature, not a bureaucratic burden.
                 </p>
               </article>
               <article className="value-card" data-reveal>
@@ -286,17 +262,15 @@ export default function AboutPage() {
                 <h3>Founder time is not renewable.</h3>
                 <p>
                   We run a tight, predictable process because founders have companies to build.
-                  Clear timelines, responsive communication, and structured feedback are baseline
-                  expectations for every team we engage.
+                  Clear timelines, responsive communication, and structured feedback are baseline expectations.
                 </p>
               </article>
               <article className="value-card" data-reveal>
                 <span className="card-label">Community</span>
                 <h3>The network compounds over time.</h3>
                 <p>
-                  The best outcomes from angel investing — for founders and members — come from
-                  long-term relationships. We invest in the community as deliberately as we invest in
-                  companies.
+                  The best outcomes from angel investing come from long-term relationships. We invest
+                  in the community as deliberately as we invest in companies.
                 </p>
               </article>
               <article className="value-card" data-reveal>
@@ -304,8 +278,7 @@ export default function AboutPage() {
                 <h3>Operators know what they don&apos;t know.</h3>
                 <p>
                   Our members bring real experience — and a genuine appreciation for how much they
-                  can still learn from founders. The best diligence is a conversation, not an
-                  interrogation.
+                  can still learn from founders. The best diligence is a conversation, not an interrogation.
                 </p>
               </article>
               <article className="value-card" data-reveal>
@@ -313,8 +286,7 @@ export default function AboutPage() {
                 <h3>Companies that matter are worth building.</h3>
                 <p>
                   We back founders who are solving real problems in large markets. The measure of our
-                  work is not just returns — it is the companies that exist and thrive because of
-                  this network&apos;s involvement.
+                  work is not just returns — it is the companies that thrive because of this network.
                 </p>
               </article>
             </div>
