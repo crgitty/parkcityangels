@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funding Process | Park City Angels</title>
+  <meta
+    name="description"
+    content="Learn how Park City Angels evaluates and funds early-stage companies. A transparent, step-by-step overview of our application, screening, and diligence process."
+  />
+  <link rel="icon" href="pca_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;0,700;1,400&amp;family=Libre+Franklin:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --bg-soft: #fcfaf5;
+      --surface: #ffffff;
+      --surface-soft: #f2eadf;
+      --ink: #2f291f;
+      --ink-soft: #665d52;
+      --line: #ddd2c2;
+      --line-strong: #cdbda8;
+      --green: #2e6b47;
+      --green-deep: #1f5033;
+      --warm: #a7855b;
+      --shadow: rgba(61, 47, 30, 0.08);
+      --radius: 24px;
+      --radius-sm: 18px;
+      --container: 1180px;
+      --pad-x: clamp(1rem, 2.6vw, 2rem);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Libre Franklin", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background: linear-gradient(180deg, #f8f4ed 0%, var(--bg) 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(circle at top left, rgba(167, 133, 91, 0.09), transparent 30%);
+      opacity: 0.9;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Baskervville", serif;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: 0.94;
+    }
+
+    p { margin: 0; }
+
+    .container {
+      width: min(100%, var(--container));
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 40;
+      background: rgba(252, 249, 243, 0.86);
+      border-bottom: 1px solid rgba(205, 189, 168, 0.45);
+      backdrop-filter: blur(16px);
+      transition: background 220ms ease, box-shadow 220ms ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(252, 249, 243, 0.94);
+      box-shadow: 0 8px 22px rgba(61, 47, 30, 0.06);
+    }
+
+    .header-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.4rem;
+      align-items: center;
+      min-height: 88px;
+    }
+
+    .brand { display: inline-flex; align-items: center; }
+
+    .brand-badge {
+      display: block;
+      width: 190px;
+      height: 58px;
+      padding: 0.2rem;
+      border: 1px solid rgba(47, 41, 31, 0.08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 12px 24px rgba(61, 47, 30, 0.05);
+    }
+
+    .brand-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transform: scale(1.18);
+    }
+
+    .nav {
+      display: flex;
+      justify-self: center;
+      align-items: center;
+      gap: 1.6rem;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 0.2rem 0;
+      transition: color 180ms ease;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -0.15rem;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 180ms ease;
+    }
+
+    .nav a:hover { color: var(--ink); }
+    .nav a:hover::after, .nav a.active::after { transform: scaleX(1); }
+    .nav a.active { color: var(--ink); }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0.84rem 1.28rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      color: #f7fbf8;
+      background: var(--green);
+      box-shadow: 0 10px 22px rgba(46, 107, 71, 0.16);
+    }
+
+    .btn-primary:hover { background: var(--green-deep); }
+
+    .btn-secondary {
+      color: var(--ink);
+      border-color: rgba(47, 41, 31, 0.12);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .btn-secondary:hover {
+      background: #ffffff;
+      border-color: rgba(47, 41, 31, 0.18);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border: 1px solid rgba(47, 41, 31, 0.12);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--ink);
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+      border-radius: 999px;
+    }
+
+    .nav-panel { display: none; }
+
+    /* ── Page hero ── */
+    .page-hero {
+      padding-top: 88px;
+      background:
+        radial-gradient(circle at top left, rgba(167, 133, 91, 0.1) 0%, transparent 40%),
+        linear-gradient(180deg, #f0e9db 0%, #ede4d6 100%);
+    }
+
+    .page-hero-shell {
+      padding: clamp(3.5rem, 7vw, 5.5rem) 0 clamp(3rem, 6vw, 4.5rem);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--warm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .page-hero h1 {
+      margin-top: 1.05rem;
+      max-width: 16ch;
+      font-size: clamp(2.9rem, 5.5vw, 4.8rem);
+      text-wrap: balance;
+    }
+
+    .page-hero-sub {
+      margin-top: 1.35rem;
+      max-width: 58ch;
+      color: var(--ink-soft);
+      font-size: clamp(1.02rem, 1.7vw, 1.12rem);
+      line-height: 1.68;
+    }
+
+    /* ── Shared section scaffolding ── */
+    section { padding: clamp(4.4rem, 8vw, 6.7rem) 0; }
+
+    .section-band { background-repeat: no-repeat; background-size: cover; }
+
+    .section-band-a {
+      background:
+        radial-gradient(circle at top left, rgba(167, 133, 91, 0.08) 0%, transparent 42%),
+        linear-gradient(180deg, rgba(255, 252, 247, 0.9) 0%, rgba(247, 242, 233, 0.78) 100%);
+    }
+
+    .section-band-b {
+      background:
+        radial-gradient(circle at top right, rgba(78, 108, 92, 0.08) 0%, transparent 44%),
+        linear-gradient(180deg, rgba(251, 248, 242, 0.88) 0%, rgba(242, 237, 228, 0.8) 100%);
+    }
+
+    .section-kicker {
+      margin-bottom: 0.85rem;
+      color: var(--warm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 2.1rem;
+      align-items: end;
+      margin-bottom: 2.35rem;
+    }
+
+    .section-head h2 {
+      max-width: 14ch;
+      font-size: clamp(2.6rem, 4.7vw, 4rem);
+    }
+
+    .section-copy {
+      max-width: 60ch;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* ── Process steps ── */
+    .steps {
+      display: grid;
+      gap: 1rem;
+      counter-reset: steps;
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: 3.6rem minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.75rem;
+      border: 1px solid rgba(205, 189, 168, 0.6);
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 12px 28px rgba(61, 47, 30, 0.04);
+      counter-increment: steps;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(167, 133, 91, 0.58);
+      box-shadow: 0 16px 30px rgba(61, 47, 30, 0.06);
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.6rem;
+      height: 3.6rem;
+      border-radius: 50%;
+      border: 1px solid rgba(46, 107, 71, 0.22);
+      background: rgba(46, 107, 71, 0.07);
+      font-family: "Baskervville", serif;
+      font-size: 1.5rem;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .step-number::after {
+      content: counter(steps);
+    }
+
+    .step-body {}
+
+    .step-label {
+      color: var(--warm);
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .step-card h3 {
+      margin-top: 0.55rem;
+      font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+    }
+
+    .step-card p {
+      margin-top: 0.65rem;
+      color: var(--ink-soft);
+      line-height: 1.68;
+    }
+
+    .step-card .step-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(205, 189, 168, 0.7);
+      background: rgba(247, 242, 233, 0.8);
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* ── Criteria grid ── */
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .criteria-card {
+      padding: 1.55rem;
+      border: 1px solid rgba(205, 189, 168, 0.6);
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 12px 28px rgba(61, 47, 30, 0.04);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .criteria-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(167, 133, 91, 0.58);
+      box-shadow: 0 16px 30px rgba(61, 47, 30, 0.06);
+    }
+
+    .card-label {
+      color: var(--warm);
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .criteria-card h3 {
+      margin-top: 0.9rem;
+      font-size: clamp(1.55rem, 2.4vw, 2rem);
+    }
+
+    .criteria-card p {
+      margin-top: 0.7rem;
+      color: var(--ink-soft);
+      line-height: 1.66;
+    }
+
+    /* ── FAQ ── */
+    .faq-list {
+      display: grid;
+      gap: 0.65rem;
+      max-width: 820px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(205, 189, 168, 0.6);
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.84);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      border: none;
+      background: none;
+      text-align: left;
+      font-family: "Libre Franklin", sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: color 180ms ease;
+    }
+
+    .faq-question:hover { color: var(--green-deep); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid rgba(205, 189, 168, 0.8);
+      background: var(--surface-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+      color: var(--ink-soft);
+      transition: transform 220ms ease, background 180ms ease;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--line);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.25rem;
+      color: var(--ink-soft);
+      line-height: 1.68;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ── Feature list ── */
+    .feature-list {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.1rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 1.1rem;
+      color: var(--ink);
+      line-height: 1.58;
+    }
+
+    .feature-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* ── CTA ── */
+    .final-cta {
+      padding-top: clamp(2.8rem, 6vw, 4.5rem);
+      padding-bottom: clamp(2.8rem, 6vw, 4.5rem);
+    }
+
+    .cta-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1.8rem;
+      align-items: center;
+      padding: clamp(1.7rem, 3vw, 2.35rem);
+      border: 1px solid rgba(205, 189, 168, 0.72);
+      border-radius: var(--radius);
+      background: #f4ecdf;
+      box-shadow: 0 18px 40px rgba(61, 47, 30, 0.05);
+    }
+
+    .cta-shell h2 {
+      max-width: 12ch;
+      font-size: clamp(2.35rem, 4.2vw, 3.45rem);
+    }
+
+    .cta-shell p {
+      margin-top: 0.8rem;
+      max-width: 56ch;
+      color: var(--ink-soft);
+      line-height: 1.68;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    /* ── Footer ── */
+    footer { padding: 0 0 2.2rem; }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.4rem;
+      padding-top: 1.3rem;
+      border-top: 1px solid rgba(205, 189, 168, 0.5);
+    }
+
+    .footer-brand h3 { font-size: 1.75rem; }
+
+    .footer-brand p {
+      margin-top: 0.7rem;
+      max-width: 58ch;
+      color: var(--ink-soft);
+      line-height: 1.68;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.7rem 1rem;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    .mobile-stick { display: none; }
+
+    /* ── Reveal ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 540ms ease, transform 540ms ease;
+    }
+
+    [data-reveal].in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1080px) {
+      .nav, .header-cta { display: none; }
+
+      .menu-btn {
+        display: inline-block;
+        justify-self: end;
+      }
+
+      .nav-panel {
+        position: absolute;
+        top: calc(100% - 0.2rem);
+        left: 0; right: 0;
+        gap: 0.65rem;
+        padding: 1rem;
+        border: 1px solid rgba(205, 189, 168, 0.72);
+        border-radius: 18px;
+        background: rgba(252, 249, 243, 0.98);
+        box-shadow: 0 18px 34px rgba(61, 47, 30, 0.07);
+      }
+
+      .nav-panel.open { display: grid; }
+      .nav-panel a, .nav-panel .btn { width: 100%; }
+      .nav-panel a { color: var(--ink-soft); }
+
+      .section-head, .cta-shell, .footer-grid { grid-template-columns: 1fr; }
+      .criteria-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cta-actions, .footer-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 760px) {
+      .brand-badge { width: 176px; height: 54px; }
+      .step-card { grid-template-columns: 1fr; gap: 1rem; }
+      .step-number { width: 3rem; height: 3rem; font-size: 1.25rem; }
+      .criteria-grid { grid-template-columns: 1fr; }
+
+      .mobile-stick {
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        z-index: 38;
+        display: flex;
+        gap: 0.65rem;
+        padding: 0.7rem;
+        background: rgba(252, 249, 243, 0.95);
+        border-top: 1px solid rgba(205, 189, 168, 0.72);
+        backdrop-filter: blur(14px);
+      }
+
+      .mobile-stick .btn { flex: 1; }
+      footer { padding-bottom: 5.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Park City Angels Home">
+          <span class="brand-badge">
+            <img src="pca_logo.png" alt="Park City Angels logo" />
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary Navigation">
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/#founders">Founders</a>
+          <a href="/#investors">Investors</a>
+          <a href="/about.html">About</a>
+          <a href="/funding-process.html" class="active">Funding Process</a>
+        </nav>
+
+        <div class="header-cta">
+          <a class="btn btn-secondary" href="/investor-application.html">Investor Application</a>
+          <a class="btn btn-primary" href="https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23n8">Apply for Funding</a>
+        </div>
+
+        <button class="menu-btn" id="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="nav-panel" id="nav-panel" aria-label="Mobile Navigation">
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/#founders">Founders</a>
+          <a href="/#investors">Investors</a>
+          <a href="/about.html">About</a>
+          <a href="/funding-process.html">Funding Process</a>
+          <a class="btn btn-secondary" href="/investor-application.html">Investor Application</a>
+          <a class="btn btn-primary" href="https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23n8">Apply for Funding</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="container page-hero-shell">
+        <div data-reveal>
+          <span class="eyebrow">How it works</span>
+          <h1>A transparent process, start to finish.</h1>
+          <p class="page-hero-sub">
+            We believe founders deserve to know exactly what to expect. Here is every step of how Park City Angels
+            evaluates companies — from your first application through a funding decision.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process steps -->
+    <section class="section-band section-band-a" id="steps">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="section-kicker">The Process</p>
+            <h2>Six steps from application to funding.</h2>
+          </div>
+          <p class="section-copy">
+            Most companies move through all six stages in four to eight weeks.
+            Every company that applies receives a response.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step-card" data-reveal>
+            <div class="step-number" aria-hidden="true"></div>
+            <div class="step-body">
+              <span class="step-label">Application</span>
+              <h3>Submit your application via Dealum.</h3>
+              <p>
+                Complete the online application through our Dealum portal. You'll provide a brief overview of your
+                company, team, traction, and funding ask. No pitch deck required at this stage — we want to understand
+                the core of what you're building before reviewing materials.
+              </p>
+              <span class="step-meta">Typically 1–2 business days to acknowledge</span>
+            </div>
+          </article>
+
+          <article class="step-card" data-reveal>
+            <div class="step-number" aria-hidden="true"></div>
+            <div class="step-body">
+              <span class="step-label">Initial Screening</span>
+              <h3>A first review by our screening committee.</h3>
+              <p>
+                Our screening committee reviews all applications against our investment criteria: founder quality,
+                market opportunity, early traction, and fit with the network's expertise. Companies that don't advance
+                receive direct feedback explaining why.
+              </p>
+              <span class="step-meta">Decision within 2 weeks of application</span>
+            </div>
+          </article>
+
+          <article class="step-card" data-reveal>
+            <div class="step-number" aria-hidden="true"></div>
+            <div class="step-body">
+              <span class="step-label">Screening Presentation</span>
+              <h3>A 20-minute presentation to a smaller group.</h3>
+              <p>
+                Companies that pass initial screening are invited to present to a subset of members — typically 8 to
+                12 people. This is a working session, not a formal pitch. Expect direct questions on your business
+                model, competitive landscape, and use of capital. You'll get candid feedback regardless of outcome.
+              </p>
+              <span class="step-meta">20 minutes presentation + 10 minutes Q&amp;A</span>
+            </div>
+          </article>
+
+          <article class="step-card" data-reveal>
+            <div class="step-number" aria-hidden="true"></div>
+            <div class="step-body">
+              <span class="step-label">Full Member Presentation</span>
+              <h3>Present to the full membership at a monthly meeting.</h3>
+              <p>
+                Companies advancing from the screening presentation are invited to present at our monthly member
+                meeting. This is your opportunity to make the case to the full group of 100+ accredited investors
+                and operators. A formal Q&A follows the presentation.
+              </p>
+              <span class="step-meta">30 minutes presentation + 15 minutes Q&amp;A</span>
+            </div>
+          </article>
+
+          <article class="step-card" data-reveal>
+            <div class="step-number" aria-hidden="true"></div>
+            <div class="step-body">
+              <span class="step-label">Due Diligence</span>
+              <h3>A focused diligence period led by a member team.</h3>
+              <p>
+                If the membership votes to pursue a deal, a volunteer diligence team is assembled from members
+                with relevant domain expertise. They work directly with your team over two to four weeks, reviewing
+                financials, customer references, legal structure, and market assumptions.
+              </p>
+              <span class="step-meta">Typically 2–4 weeks</span>
+            </div>
+          </article>
+
+          <article class="step-card" data-reveal>
+            <div class="step-number" aria-hidden="true"></div>
+            <div class="step-body">
+              <span class="step-label">Investment Decision</span>
+              <h3>Individual members commit capital independently.</h3>
+              <p>
+                Park City Angels does not invest as a single fund. After diligence, individual members decide whether
+                to invest and at what amount. Investments are made directly from member to company. Total investment
+                per company typically ranges from $100K to $500K, with follow-on from members in subsequent rounds.
+              </p>
+              <span class="step-meta">Commitments collected over 1–2 weeks post-diligence</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Investment criteria -->
+    <section class="section-band section-band-b" id="criteria">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="section-kicker">Investment Criteria</p>
+            <h2>What we look for in every company.</h2>
+          </div>
+          <p class="section-copy">
+            We don't invest by checklist. But these are the factors that consistently determine whether a company
+            advances through our process.
+          </p>
+        </div>
+
+        <div class="criteria-grid">
+          <article class="criteria-card" data-reveal>
+            <span class="card-label">Founder</span>
+            <h3>Clarity and execution speed.</h3>
+            <p>We back founders who understand their customers deeply, communicate with precision, and move fast without losing quality. Prior exits are not required — demonstrated judgment is.</p>
+          </article>
+          <article class="criteria-card" data-reveal>
+            <span class="card-label">Market</span>
+            <h3>Large, durable demand.</h3>
+            <p>We invest in categories where success produces a company of real scale. The market doesn't need to exist yet — but the path to becoming large and defensible must be clear.</p>
+          </article>
+          <article class="criteria-card" data-reveal>
+            <span class="card-label">Traction</span>
+            <h3>Evidence of pull, not push.</h3>
+            <p>Customers using the product, paying for it, and coming back. We weight retention and organic growth over launch metrics and press coverage.</p>
+          </article>
+          <article class="criteria-card" data-reveal>
+            <span class="card-label">Stage</span>
+            <h3>Pre-seed through seed.</h3>
+            <p>We focus on companies raising their first or second institutional round — typically $500K to $3M. Companies earlier than MVP or later than Series A are outside our usual range.</p>
+          </article>
+          <article class="criteria-card" data-reveal>
+            <span class="card-label">Network fit</span>
+            <h3>We can be genuinely useful.</h3>
+            <p>The best investments for us are companies where our members' operating experience is directly relevant — where we can help beyond writing a check.</p>
+          </article>
+          <article class="criteria-card" data-reveal>
+            <span class="card-label">Geography</span>
+            <h3>Anywhere in the United States.</h3>
+            <p>We are based in Park City, Utah but invest nationally. Location is not a factor in our evaluation — founder quality and market opportunity are.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-band section-band-a" id="faq">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="section-kicker">Common Questions</p>
+            <h2>What founders ask us most.</h2>
+          </div>
+        </div>
+
+        <div class="faq-list" data-reveal>
+          <div class="faq-item">
+            <button class="faq-question">
+              How long does the full process take?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Most companies move from application to funding decision in four to eight weeks, depending on where
+              they enter relative to our monthly meeting schedule. We run meetings monthly, so timing your application
+              to align with the cycle can reduce wait time. We'll communicate expected timelines clearly at each stage.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Do you lead rounds or co-invest?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Both. We often co-invest alongside other angel groups, seed funds, and institutional investors.
+              In some cases, PCA members collectively represent the lead investor. We're flexible on structure
+              and prioritize getting the right investors into the round over taking any particular role.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What does a typical investment look like?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Individual member investments typically range from $10K to $100K per company. When a deal generates
+              strong interest from the membership, total capital from PCA members can reach $250K to $500K or more.
+              Investments are made on standard angel terms — SAFEs, convertible notes, or priced equity rounds,
+              depending on what the company is running.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What happens if we don't advance past screening?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Every company that presents to our screening committee receives direct written feedback. If you
+              don't advance, we'll tell you specifically why — and in many cases, what would need to change for
+              us to revisit the conversation. We encourage companies to reapply when they've hit the milestones
+              we flagged.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Do you require a warm introduction to apply?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              No. We accept cold applications through our Dealum portal and evaluate them on the same criteria as
+              referred companies. A warm introduction from a founder or investor in our network can help provide
+              context, but it is not required and does not influence how we assess the business.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Can international founders apply?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              We invest in companies incorporated in the United States. International founders who have incorporated
+              — or plan to incorporate — a US entity are eligible to apply. We do not currently invest in companies
+              operating exclusively outside the US.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-band section-band-b final-cta">
+      <div class="container">
+        <div class="cta-shell" data-reveal>
+          <div>
+            <p class="section-kicker">Ready to apply?</p>
+            <h2>Start your application today.</h2>
+            <p>The application takes less than 15 minutes. Every submission receives a response.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23n8">Apply for Funding</a>
+            <a class="btn btn-secondary" href="/about.html">Learn About Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <h3>Park City Angels</h3>
+        <p>Park City Angels supports early-stage founders across the United States through capital, mentorship, and community.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/about.html">About</a>
+        <a href="/portfolio.html">Portfolio</a>
+        <a href="/funding-process.html">Funding Process</a>
+        <a href="/investor-application.html">Investor Application</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://www.linkedin.com/company/park-city-angel-network/">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-stick" aria-hidden="true">
+    <a class="btn btn-primary" href="https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23n8">Apply</a>
+    <a class="btn btn-secondary" href="/investor-application.html">Invest</a>
+  </div>
+
+  <script>
+    const header = document.getElementById("site-header");
+    const menuBtn = document.getElementById("menu-btn");
+    const navPanel = document.getElementById("nav-panel");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const setHeaderState = () => {
+      header.classList.toggle("scrolled", window.scrollY > 16);
+    };
+
+    setHeaderState();
+    window.addEventListener("scroll", setHeaderState, { passive: true });
+
+    menuBtn?.addEventListener("click", () => {
+      const isOpen = navPanel.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    navPanel?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navPanel.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll(".faq-question").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".faq-item");
+        const isOpen = item.classList.contains("open");
+        document.querySelectorAll(".faq-item.open").forEach((el) => el.classList.remove("open"));
+        if (!isOpen) item.classList.add("open");
+      });
+    });
+
+    if (!prefersReducedMotion) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16 }
+      );
+
+      document.querySelectorAll("[data-reveal]").forEach((el, i) => {
+        el.style.transitionDelay = `${Math.min(i * 45, 180)}ms`;
+        observer.observe(el);
+      });
+    } else {
+      document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("in"));
+    }
+  </script>
+</body>
+</html>
