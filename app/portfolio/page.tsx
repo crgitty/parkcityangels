@@ -1,63 +1,38 @@
-"use client";
-
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import RevealInit from "@/components/RevealInit";
+import PortfolioGrid, { PortfolioCompany } from "@/components/PortfolioGrid";
 
 const DEALUM_URL =
   "https://app.dealum.com/#/company/application/new/263002/7ytvfq502aceojpn7sdeolr2465u23n8";
 
-const portfolioCards = [
-  { logo: "01", sector: "software", tag: "Software", stage: "Seed" },
-  { logo: "02", sector: "healthcare", tag: "Healthcare", stage: "Pre-Seed" },
-  { logo: "03", sector: "consumer", tag: "Consumer", stage: "Seed" },
-  { logo: "04", sector: "fintech", tag: "Fintech", stage: "Seed" },
-  { logo: "05", sector: "software", tag: "Software", stage: "Pre-Seed" },
-  { logo: "06", sector: "hardware", tag: "Hardware", stage: "Seed" },
-  { logo: "07", sector: "healthcare", tag: "Healthcare", stage: "Seed" },
-  { logo: "08", sector: "software", tag: "Software", stage: "Seed" },
-  { logo: "09", sector: "consumer", tag: "Consumer", stage: "Pre-Seed" },
-  { logo: "10", sector: "fintech", tag: "Fintech", stage: "Seed" },
-  { logo: "11", sector: "software", tag: "Software", stage: "Seed" },
-  { logo: "12", sector: "healthcare", tag: "Healthcare", stage: "Pre-Seed" },
-  { logo: "13", sector: "consumer", tag: "Consumer", stage: "Seed" },
-  { logo: "14", sector: "hardware", tag: "Hardware", stage: "Seed" },
-  { logo: "15", sector: "software", tag: "Software", stage: "Pre-Seed" },
-  { logo: "16", sector: "fintech", tag: "Fintech", stage: "Seed" },
-  { logo: "17", sector: "healthcare", tag: "Healthcare", stage: "Seed" },
-];
-
-const filters = ["all", "software", "healthcare", "consumer", "fintech", "hardware"];
+function getPortfolioCompanies(): PortfolioCompany[] {
+  const dir = path.join(process.cwd(), "content/portfolio");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".md") || f.endsWith(".mdx"));
+  return files.map((file) => {
+    const raw = fs.readFileSync(path.join(dir, file), "utf-8");
+    const { data } = matter(raw);
+    return {
+      name: data.name ?? "Company",
+      sector: data.sector,
+      stage: data.stage,
+      description: data.description,
+      logo: data.logo,
+      website: data.website,
+      _filename: file,
+    };
+  });
+}
 
 export default function PortfolioPage() {
-  const [activeFilter, setActiveFilter] = useState("all");
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) {
-      document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("in"));
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll("[data-reveal]").forEach((el, i) => {
-      (el as HTMLElement).style.transitionDelay = `${Math.min(i * 35, 180)}ms`;
-      observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+  const companies = getPortfolioCompanies();
 
   return (
     <>
+      <RevealInit />
       <main>
         {/* Hero */}
         <section className="page-hero">
@@ -82,54 +57,13 @@ export default function PortfolioPage() {
         {/* Portfolio grid */}
         <section className="section-band section-band-a">
           <div className="container">
-            <div className="filter-bar" data-reveal>
-              {filters.map((f) => (
-                <button
-                  key={f}
-                  className={`filter-btn${activeFilter === f ? " active" : ""}`}
-                  onClick={() => setActiveFilter(f)}
-                >
-                  {f === "all"
-                    ? "All Companies"
-                    : f.charAt(0).toUpperCase() + f.slice(1)}
-                </button>
-              ))}
-            </div>
-
-            <div className="portfolio-grid">
-              {portfolioCards.map((card, i) => (
-                <article
-                  key={i}
-                  className="portfolio-card"
-                  data-reveal
-                  data-sector={card.sector}
-                  {...(activeFilter !== "all" && activeFilter !== card.sector
-                    ? { "data-hidden": true }
-                    : {})}
-                >
-                  <div className="card-logo">
-                    <Image
-                      src={`/logos/portfolio-logo-${card.logo}.png`}
-                      alt="Portfolio company logo"
-                      width={168}
-                      height={72}
-                      loading="lazy"
-                      style={{ maxWidth: "100%", maxHeight: "4.5rem", width: "auto", height: "auto", objectFit: "contain" }}
-                    />
-                  </div>
-                  <div className="card-body">
-                    <p className="card-name">Company Name</p>
-                    <div className="card-tags">
-                      <span className="tag">{card.tag}</span>
-                      <span className="tag">{card.stage}</span>
-                    </div>
-                    <p className="card-desc">
-                      One to two sentence description of what this company does and why it matters.
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
+            {companies.length > 0 ? (
+              <PortfolioGrid companies={companies} />
+            ) : (
+              <p style={{ color: "var(--ink-soft)", textAlign: "center", padding: "4rem 0" }}>
+                Portfolio companies coming soon.
+              </p>
+            )}
           </div>
         </section>
 
