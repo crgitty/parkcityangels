@@ -1,0 +1,24 @@
+fragment TeamParts on Team {
+  __typename
+  name
+  role
+  bio
+  avatar
+}
+
+fragment PortfolioParts on Portfolio {
+  __typename
+  name
+  sector
+  stage
+  description
+  logo
+  website
+}
+
+fragment PagesParts on Pages {
+  __typename
+  title
+  heroHeading
+  heroSubtext
+}
