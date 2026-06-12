@@ -930,6 +930,65 @@
         padding-bottom: 5.7rem;
       }
     }
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown > a {
+      position: relative;
+      padding: 0.2rem 0;
+      transition: color 180ms ease;
+    }
+
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.65rem);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 11rem;
+      padding: 0.45rem;
+      border: 1px solid rgba(205, 189, 168, 0.72);
+      border-radius: 14px;
+      background: rgba(252, 249, 243, 0.98);
+      box-shadow: 0 12px 28px rgba(61, 47, 30, 0.09);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .nav-dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -0.45rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 0.65rem;
+    }
+
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+      display: block;
+    }
+
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 0.55rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .nav-dropdown-menu a:hover {
+      background: rgba(46, 107, 71, 0.07);
+      color: var(--green-deep);
+    }
+
+    .nav-dropdown-menu a::after { display: none; }
+
   </style>
 </head>
 <body>
@@ -945,7 +1004,12 @@
         <nav class="nav" aria-label="Primary Navigation">
           <a href="/portfolio.html">Portfolio</a>
           <a href="#founders">Founders</a>
-          <a href="#investors">Investors</a>
+          <div class="nav-dropdown">
+            <a href="#investors">Investors</a>
+            <div class="nav-dropdown-menu">
+              <a href="/investor-application.html">Investor Application</a>
+            </div>
+          </div>
           <a href="/funding-process.html">Process</a>
           <a href="/about.html">About</a>
         </nav>
