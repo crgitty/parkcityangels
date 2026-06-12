@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tinacms build && next build",
     "start": "next start",
     "cms": "npx tinacms dev -c \"next dev\""
   },
