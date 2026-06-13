@@ -19,6 +19,28 @@ fragment PortfolioParts on Portfolio {
 fragment PagesParts on Pages {
   __typename
   title
+  heroEyebrow
   heroHeading
   heroSubtext
+  heroStats {
+    __typename
+    stat
+  }
+  whyKicker
+  whyHeading
+  whyBody
+  statCards {
+    __typename
+    label
+    value
+    description
+  }
+  thesisKicker
+  thesisHeading
+  thesisCards {
+    __typename
+    label
+    heading
+    body
+  }
 }

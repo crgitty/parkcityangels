@@ -205,7 +205,7 @@ export type Team = Node & Document & {
   __typename?: 'Team';
   name: Scalars['String']['output'];
   role?: Maybe<Scalars['String']['output']>;
-  bio?: Maybe<Scalars['JSON']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -219,12 +219,6 @@ export type StringFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type RichTextFilter = {
-  startsWith?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
 export type ImageFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -235,7 +229,7 @@ export type ImageFilter = {
 export type TeamFilter = {
   name?: InputMaybe<StringFilter>;
   role?: InputMaybe<StringFilter>;
-  bio?: InputMaybe<RichTextFilter>;
+  bio?: InputMaybe<StringFilter>;
   avatar?: InputMaybe<ImageFilter>;
 };
 
@@ -287,20 +281,73 @@ export type PortfolioConnection = Connection & {
   edges?: Maybe<Array<Maybe<PortfolioConnectionEdges>>>;
 };
 
+export type PagesHeroStats = {
+  __typename?: 'PagesHeroStats';
+  stat?: Maybe<Scalars['String']['output']>;
+};
+
+export type PagesStatCards = {
+  __typename?: 'PagesStatCards';
+  label?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type PagesThesisCards = {
+  __typename?: 'PagesThesisCards';
+  label?: Maybe<Scalars['String']['output']>;
+  heading?: Maybe<Scalars['String']['output']>;
+  body?: Maybe<Scalars['String']['output']>;
+};
+
 export type Pages = Node & Document & {
   __typename?: 'Pages';
   title?: Maybe<Scalars['String']['output']>;
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
   heroHeading?: Maybe<Scalars['String']['output']>;
   heroSubtext?: Maybe<Scalars['String']['output']>;
+  heroStats?: Maybe<Array<Maybe<PagesHeroStats>>>;
+  whyKicker?: Maybe<Scalars['String']['output']>;
+  whyHeading?: Maybe<Scalars['String']['output']>;
+  whyBody?: Maybe<Scalars['String']['output']>;
+  statCards?: Maybe<Array<Maybe<PagesStatCards>>>;
+  thesisKicker?: Maybe<Scalars['String']['output']>;
+  thesisHeading?: Maybe<Scalars['String']['output']>;
+  thesisCards?: Maybe<Array<Maybe<PagesThesisCards>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
 };
 
+export type PagesHeroStatsFilter = {
+  stat?: InputMaybe<StringFilter>;
+};
+
+export type PagesStatCardsFilter = {
+  label?: InputMaybe<StringFilter>;
+  value?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type PagesThesisCardsFilter = {
+  label?: InputMaybe<StringFilter>;
+  heading?: InputMaybe<StringFilter>;
+  body?: InputMaybe<StringFilter>;
+};
+
 export type PagesFilter = {
   title?: InputMaybe<StringFilter>;
+  heroEyebrow?: InputMaybe<StringFilter>;
   heroHeading?: InputMaybe<StringFilter>;
   heroSubtext?: InputMaybe<StringFilter>;
+  heroStats?: InputMaybe<PagesHeroStatsFilter>;
+  whyKicker?: InputMaybe<StringFilter>;
+  whyHeading?: InputMaybe<StringFilter>;
+  whyBody?: InputMaybe<StringFilter>;
+  statCards?: InputMaybe<PagesStatCardsFilter>;
+  thesisKicker?: InputMaybe<StringFilter>;
+  thesisHeading?: InputMaybe<StringFilter>;
+  thesisCards?: InputMaybe<PagesThesisCardsFilter>;
 };
 
 export type PagesConnectionEdges = {
@@ -416,7 +463,7 @@ export type DocumentMutation = {
 export type TeamMutation = {
   name?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<Scalars['String']['input']>;
-  bio?: InputMaybe<Scalars['JSON']['input']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
   avatar?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -429,24 +476,49 @@ export type PortfolioMutation = {
   website?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PagesMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  heroHeading?: InputMaybe<Scalars['String']['input']>;
-  heroSubtext?: InputMaybe<Scalars['String']['input']>;
+export type PagesHeroStatsMutation = {
+  stat?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type TeamPartsFragment = { __typename: 'Team', name: string, role?: string | null, bio?: any | null, avatar?: string | null };
+export type PagesStatCardsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PagesThesisCardsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  heading?: InputMaybe<Scalars['String']['input']>;
+  body?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroSubtext?: InputMaybe<Scalars['String']['input']>;
+  heroStats?: InputMaybe<Array<InputMaybe<PagesHeroStatsMutation>>>;
+  whyKicker?: InputMaybe<Scalars['String']['input']>;
+  whyHeading?: InputMaybe<Scalars['String']['input']>;
+  whyBody?: InputMaybe<Scalars['String']['input']>;
+  statCards?: InputMaybe<Array<InputMaybe<PagesStatCardsMutation>>>;
+  thesisKicker?: InputMaybe<Scalars['String']['input']>;
+  thesisHeading?: InputMaybe<Scalars['String']['input']>;
+  thesisCards?: InputMaybe<Array<InputMaybe<PagesThesisCardsMutation>>>;
+};
+
+export type TeamPartsFragment = { __typename: 'Team', name: string, role?: string | null, bio?: string | null, avatar?: string | null };
 
 export type PortfolioPartsFragment = { __typename: 'Portfolio', name: string, sector?: string | null, stage?: string | null, description?: string | null, logo?: string | null, website?: string | null };
 
-export type PagesPartsFragment = { __typename: 'Pages', title?: string | null, heroHeading?: string | null, heroSubtext?: string | null };
+export type PagesPartsFragment = { __typename: 'Pages', title?: string | null, heroEyebrow?: string | null, heroHeading?: string | null, heroSubtext?: string | null, whyKicker?: string | null, whyHeading?: string | null, whyBody?: string | null, thesisKicker?: string | null, thesisHeading?: string | null, heroStats?: Array<{ __typename: 'PagesHeroStats', stat?: string | null } | null> | null, statCards?: Array<{ __typename: 'PagesStatCards', label?: string | null, value?: string | null, description?: string | null } | null> | null, thesisCards?: Array<{ __typename: 'PagesThesisCards', label?: string | null, heading?: string | null, body?: string | null } | null> | null };
 
 export type TeamQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type TeamQuery = { __typename?: 'Query', team: { __typename: 'Team', id: string, name: string, role?: string | null, bio?: any | null, avatar?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type TeamQuery = { __typename?: 'Query', team: { __typename: 'Team', id: string, name: string, role?: string | null, bio?: string | null, avatar?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type TeamConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -458,7 +530,7 @@ export type TeamConnectionQueryVariables = Exact<{
 }>;
 
 
-export type TeamConnectionQuery = { __typename?: 'Query', teamConnection: { __typename?: 'TeamConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'TeamConnectionEdges', cursor: string, node?: { __typename: 'Team', id: string, name: string, role?: string | null, bio?: any | null, avatar?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type TeamConnectionQuery = { __typename?: 'Query', teamConnection: { __typename?: 'TeamConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'TeamConnectionEdges', cursor: string, node?: { __typename: 'Team', id: string, name: string, role?: string | null, bio?: string | null, avatar?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type PortfolioQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -484,7 +556,7 @@ export type PagesQueryVariables = Exact<{
 }>;
 
 
-export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, title?: string | null, heroHeading?: string | null, heroSubtext?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, title?: string | null, heroEyebrow?: string | null, heroHeading?: string | null, heroSubtext?: string | null, whyKicker?: string | null, whyHeading?: string | null, whyBody?: string | null, thesisKicker?: string | null, thesisHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, heroStats?: Array<{ __typename: 'PagesHeroStats', stat?: string | null } | null> | null, statCards?: Array<{ __typename: 'PagesStatCards', label?: string | null, value?: string | null, description?: string | null } | null> | null, thesisCards?: Array<{ __typename: 'PagesThesisCards', label?: string | null, heading?: string | null, body?: string | null } | null> | null } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -496,7 +568,7 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, title?: string | null, heroHeading?: string | null, heroSubtext?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, title?: string | null, heroEyebrow?: string | null, heroHeading?: string | null, heroSubtext?: string | null, whyKicker?: string | null, whyHeading?: string | null, whyBody?: string | null, thesisKicker?: string | null, thesisHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, heroStats?: Array<{ __typename: 'PagesHeroStats', stat?: string | null } | null> | null, statCards?: Array<{ __typename: 'PagesStatCards', label?: string | null, value?: string | null, description?: string | null } | null> | null, thesisCards?: Array<{ __typename: 'PagesThesisCards', label?: string | null, heading?: string | null, body?: string | null } | null> | null } | null } | null> | null } };
 
 export const TeamPartsFragmentDoc = gql`
     fragment TeamParts on Team {
@@ -522,8 +594,30 @@ export const PagesPartsFragmentDoc = gql`
     fragment PagesParts on Pages {
   __typename
   title
+  heroEyebrow
   heroHeading
   heroSubtext
+  heroStats {
+    __typename
+    stat
+  }
+  whyKicker
+  whyHeading
+  whyBody
+  statCards {
+    __typename
+    label
+    value
+    description
+  }
+  thesisKicker
+  thesisHeading
+  thesisCards {
+    __typename
+    label
+    heading
+    body
+  }
 }
     `;
 export const TeamDocument = gql`

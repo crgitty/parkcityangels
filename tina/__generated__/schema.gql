@@ -96,7 +96,7 @@ union DocumentNode = Team | Portfolio | Pages | Folder
 type Team implements Node & Document {
   name: String!
   role: String
-  bio: JSON
+  bio: String
   avatar: String
   id: ID!
   _sys: SystemInfo!
@@ -110,12 +110,6 @@ input StringFilter {
   in: [String]
 }
 
-input RichTextFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-}
-
 input ImageFilter {
   startsWith: String
   eq: String
@@ -126,7 +120,7 @@ input ImageFilter {
 input TeamFilter {
   name: StringFilter
   role: StringFilter
-  bio: RichTextFilter
+  bio: StringFilter
   avatar: ImageFilter
 }
 
@@ -173,19 +167,69 @@ type PortfolioConnection implements Connection {
   edges: [PortfolioConnectionEdges]
 }
 
+type PagesHeroStats {
+  stat: String
+}
+
+type PagesStatCards {
+  label: String
+  value: String
+  description: String
+}
+
+type PagesThesisCards {
+  label: String
+  heading: String
+  body: String
+}
+
 type Pages implements Node & Document {
   title: String
+  heroEyebrow: String
   heroHeading: String
   heroSubtext: String
+  heroStats: [PagesHeroStats]
+  whyKicker: String
+  whyHeading: String
+  whyBody: String
+  statCards: [PagesStatCards]
+  thesisKicker: String
+  thesisHeading: String
+  thesisCards: [PagesThesisCards]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
+input PagesHeroStatsFilter {
+  stat: StringFilter
+}
+
+input PagesStatCardsFilter {
+  label: StringFilter
+  value: StringFilter
+  description: StringFilter
+}
+
+input PagesThesisCardsFilter {
+  label: StringFilter
+  heading: StringFilter
+  body: StringFilter
+}
+
 input PagesFilter {
   title: StringFilter
+  heroEyebrow: StringFilter
   heroHeading: StringFilter
   heroSubtext: StringFilter
+  heroStats: PagesHeroStatsFilter
+  whyKicker: StringFilter
+  whyHeading: StringFilter
+  whyBody: StringFilter
+  statCards: PagesStatCardsFilter
+  thesisKicker: StringFilter
+  thesisHeading: StringFilter
+  thesisCards: PagesThesisCardsFilter
 }
 
 type PagesConnectionEdges {
@@ -229,7 +273,7 @@ input DocumentMutation {
 input TeamMutation {
   name: String
   role: String
-  bio: JSON
+  bio: String
   avatar: String
 }
 
@@ -242,10 +286,35 @@ input PortfolioMutation {
   website: String
 }
 
+input PagesHeroStatsMutation {
+  stat: String
+}
+
+input PagesStatCardsMutation {
+  label: String
+  value: String
+  description: String
+}
+
+input PagesThesisCardsMutation {
+  label: String
+  heading: String
+  body: String
+}
+
 input PagesMutation {
   title: String
+  heroEyebrow: String
   heroHeading: String
   heroSubtext: String
+  heroStats: [PagesHeroStatsMutation]
+  whyKicker: String
+  whyHeading: String
+  whyBody: String
+  statCards: [PagesStatCardsMutation]
+  thesisKicker: String
+  thesisHeading: String
+  thesisCards: [PagesThesisCardsMutation]
 }
 
 schema {

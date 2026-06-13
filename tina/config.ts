@@ -8,45 +8,26 @@ export default defineConfig({
   media: { tina: { mediaRoot: "uploads", publicFolder: "public" } },
   schema: {
     collections: [
+      // ─── Team ────────────────────────────────────────────────────────────────
       {
         name: "team",
         label: "Team",
         path: "content/team",
         fields: [
-          {
-            type: "string",
-            name: "name",
-            label: "Name",
-            required: true,
-          },
-          {
-            type: "string",
-            name: "role",
-            label: "Role",
-          },
-          {
-            type: "rich-text",
-            name: "bio",
-            label: "Bio",
-          },
-          {
-            type: "image",
-            name: "avatar",
-            label: "Avatar",
-          },
+          { type: "string", name: "name", label: "Name", required: true },
+          { type: "string", name: "role", label: "Role" },
+          { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } },
+          { type: "image", name: "avatar", label: "Photo" },
         ],
       },
+
+      // ─── Portfolio ───────────────────────────────────────────────────────────
       {
         name: "portfolio",
         label: "Portfolio",
         path: "content/portfolio",
         fields: [
-          {
-            type: "string",
-            name: "name",
-            label: "Company Name",
-            required: true,
-          },
+          { type: "string", name: "name", label: "Company Name", required: true },
           {
             type: "string",
             name: "sector",
@@ -59,56 +40,81 @@ export default defineConfig({
             label: "Stage",
             options: ["Pre-Seed", "Seed", "Series A"],
           },
-          {
-            type: "string",
-            name: "description",
-            label: "Description",
-            ui: {
-              component: "textarea",
-            },
-          },
-          {
-            type: "image",
-            name: "logo",
-            label: "Logo",
-          },
-          {
-            type: "string",
-            name: "website",
-            label: "Website",
-          },
+          { type: "string", name: "description", label: "Description", ui: { component: "textarea" } },
+          { type: "image", name: "logo", label: "Logo" },
+          { type: "string", name: "website", label: "Website URL" },
         ],
       },
+
+      // ─── Pages ───────────────────────────────────────────────────────────────
       {
         name: "pages",
         label: "Pages",
         path: "content/pages",
+        ui: {
+          allowedActions: { create: false, delete: false },
+          router: ({ document }) => {
+            if (document._sys.filename === "homepage") return "/";
+            if (document._sys.filename === "about") return "/about";
+            return undefined;
+          },
+        },
         fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Title",
-          },
-          {
-            type: "string",
-            name: "heroHeading",
-            label: "Hero Heading",
-          },
+          { type: "string", name: "title", label: "SEO Title" },
+
+          // ── Hero ──
+          { type: "string", name: "heroEyebrow", label: "Hero — Eyebrow text" },
+          { type: "string", name: "heroHeading", label: "Hero — Main heading" },
           {
             type: "string",
             name: "heroSubtext",
-            label: "Hero Subtext",
-            ui: {
-              component: "textarea",
-            },
+            label: "Hero — Subtext",
+            ui: { component: "textarea" },
+          },
+          {
+            type: "object",
+            name: "heroStats",
+            label: "Hero — Stats strip",
+            list: true,
+            ui: { itemProps: (item) => ({ label: item?.stat }) },
+            fields: [{ type: "string", name: "stat", label: "Stat (e.g. $100M+ invested)" }],
+          },
+
+          // ── Why PCA section ──
+          { type: "string", name: "whyKicker", label: "Why PCA — Section label" },
+          { type: "string", name: "whyHeading", label: "Why PCA — Heading" },
+          { type: "string", name: "whyBody", label: "Why PCA — Body copy", ui: { component: "textarea" } },
+
+          // ── Stat cards ──
+          {
+            type: "object",
+            name: "statCards",
+            label: "Stat Cards",
+            list: true,
+            ui: { itemProps: (item) => ({ label: item?.label }) },
+            fields: [
+              { type: "string", name: "label", label: "Label (e.g. Invested capital)" },
+              { type: "string", name: "value", label: "Value (e.g. $100M+)" },
+              { type: "string", name: "description", label: "Description" },
+            ],
+          },
+
+          // ── Thesis section ──
+          { type: "string", name: "thesisKicker", label: "Thesis — Section label" },
+          { type: "string", name: "thesisHeading", label: "Thesis — Heading" },
+          {
+            type: "object",
+            name: "thesisCards",
+            label: "Thesis Cards",
+            list: true,
+            ui: { itemProps: (item) => ({ label: item?.label }) },
+            fields: [
+              { type: "string", name: "label", label: "Card label" },
+              { type: "string", name: "heading", label: "Card heading" },
+              { type: "string", name: "body", label: "Card body", ui: { component: "textarea" } },
+            ],
           },
         ],
-        ui: {
-          allowedActions: {
-            create: false,
-            delete: false,
-          },
-        },
       },
     ],
   },
